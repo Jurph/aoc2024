@@ -23,8 +23,14 @@ class Problem():
         return
     
     def isMonotonic(self, report):
-
-        return m 
+        m = True
+        for i, reading in enumerate(report):
+            if i < 2:
+                pass
+            # TODO: add exception handling for divide-by-zero
+            elif ((report[i - 2] - report[i - 1]) / (report[i - 1] - report[i]) < 0):
+                return False 
+        return True
     
     def isGentlysloped(self, report):
         
