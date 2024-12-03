@@ -23,26 +23,34 @@ class Problem():
         return
     
     def isMonotonic(self, report):
-        m = True
-        for i, reading in enumerate(report):
-            if i < 2:
-                pass
-            # TODO: add exception handling for divide-by-zero
-            elif ((report[i - 2] - report[i - 1]) / (report[i - 1] - report[i]) < 0):
-                return False 
-        return True
+        if sorted(report) == report:
+            return True
+        elif sorted(report, reverse = True) == report:
+            return True
+        else:            
+            return False
     
     def isGentlysloped(self, report):
-        
-        return g
+        for index, reading in enumerate(report):
+            if index == 0:
+                pass
+            elif abs(reading - report[index - 1]) > 3:
+                return False
+            elif abs(reading - report[index - 1]) < 1:
+                return False
+            else:
+                pass
+        return True
 
     def safety(self):
         sum = 0
         for r in self.reports:
-            if self.monotonic(r) and self.gentlysloped(r):
+            if self.isMonotonic(r) and self.isGentlysloped(r):
                 sum += 1
+                # print("Found SAFE report: {}".format(r))
             else:
                 pass
+                # print("Found UNSAFE report: {}".format(r))
         return sum 
 
 
@@ -51,8 +59,8 @@ def main():
     t = Problem("C:\\Users\\Jurph\\Documents\\Python Scripts\\aoc2024\\day02\\test.txt")
     p = Problem("C:\\Users\\Jurph\\Documents\\Python Scripts\\aoc2024\\day02\\input.txt")  
 
-    print("Test similarity is {}".format(t.safety()))
-    print("Real similarity is {}".format(p.safety()))
+    print("Test safety should be 2: is {}".format(t.safety()))
+    print("Real safety is: {}".format(p.safety()))
 
 if __name__ == "__main__":
     main()
